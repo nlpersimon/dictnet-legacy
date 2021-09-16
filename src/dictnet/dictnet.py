@@ -1,14 +1,15 @@
 from typing import Dict, List
+from gensim.models import KeyedVectors
 from .senset import Senset
 
 
 class Dictnet:
-    def __init__(self, senses: List[Dict[str, str]], def_embeds):
+    def __init__(self, senses: List[Dict[str, str]], def_embeds: KeyedVectors):
         self._def_embeds = def_embeds
         self._pos_to_sensets, self._headword_to_sensets, self._id_to_sensets = self._load_sensets(
             senses)
 
-    def _load_sensets(self, senses):
+    def _load_sensets(self, senses: List[Dict[str, str]]):
         pos_to_sensets = {}
         headword_to_sensets = {}
         id_to_sensets = {}
@@ -27,7 +28,7 @@ class Dictnet:
             id_to_sensets[senset.id] = senset
         return (pos_to_sensets, headword_to_sensets, id_to_sensets)
 
-    def keys(self, pos=None) -> List[str]:
+    def keys(self, pos: str = None) -> List[str]:
         if pos is None:
             return list(set(senset.key for sensets in self._pos_to_sensets.values()
                             for senset in sensets))
@@ -37,7 +38,7 @@ class Dictnet:
         else:
             return list(set(senset.key for senset in self._pos_to_sensets[pos]))
 
-    def headwords(self, pos=None) -> List[str]:
+    def headwords(self, pos: str = None) -> List[str]:
         if pos is None:
             return list(set(senset.headword for sensets in self._pos_to_sensets.values()
                             for senset in sensets))
@@ -47,7 +48,7 @@ class Dictnet:
         else:
             return list(set(senset.headword for senset in self._pos_to_sensets[pos]))
 
-    def all_sensets(self, pos=None):
+    def all_sensets(self, pos: str = None) -> List[Senset]:
         if pos is None:
             return [senset for sensets in self._pos_to_sensets.values()
                     for senset in sensets]
@@ -57,7 +58,7 @@ class Dictnet:
         else:
             return [senset for senset in self._pos_to_sensets[pos]]
 
-    def sensets(self, headword, pos=None):
+    def sensets(self, headword: str, pos: str = None) -> List[Senset]:
         if headword not in self._headword_to_sensets:
             raise KeyError(f'{headword} is not in the sensets')
         sensets = self._headword_to_sensets[headword]
@@ -70,12 +71,13 @@ class Dictnet:
             return [senset for senset in sensets
                     if senset.pos == pos]
 
-    def senset(self, senset_id):
+    def senset(self, senset_id: str) -> Senset:
         if senset_id not in self._def_embeds:
             raise KeyError(f'{senset_id} is not in the sensets')
         return self._id_to_sensets[senset_id]
 
-    def find_similar_sensets_by_id(self, senset_id, pos=None, top=10):
+    def find_similar_sensets_by_id(self, senset_id: str,
+                                   pos: str = None, top: int = 10) -> List[Senset]:
         if senset_id not in self._def_embeds:
             raise KeyError(f'{senset_id} is not in the sensets')
         if pos is None:

@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Dict
+from typing import TYPE_CHECKING, Dict, List
 from copy import deepcopy
 
 if TYPE_CHECKING:
@@ -20,47 +20,47 @@ class Senset:
         self._dictnet = dictnet
 
     @property
-    def id(self):
+    def id(self) -> str:
         return self._id
 
     @property
-    def key(self):
+    def key(self) -> str:
         return self._key
 
     @property
-    def headword(self):
+    def headword(self) -> str:
         return self._headword
 
     @property
-    def pos(self):
+    def pos(self) -> str:
         return self._pos
 
     @property
-    def guideword(self):
+    def guideword(self) -> str:
         return self._guideword
 
     @property
-    def en_def(self):
+    def en_def(self) -> str:
         return self._en_def
 
     @property
-    def en_def(self):
+    def en_def(self) -> str:
         return self._en_def
 
     @property
-    def ch_def(self):
+    def ch_def(self) -> str:
         return self._ch_def
 
     @property
-    def gcs(self):
+    def gcs(self) -> str:
         return self._gcs
 
     @property
-    def examples(self):
+    def examples(self) -> List[Dict[str, str]]:
         return deepcopy(self._examples)
 
     def __repr__(self) -> str:
         return f"Senset('{self.id}')"
 
-    def similar_sensets(self, pos=None, top=10):
+    def similar_sensets(self, pos: str = None, top: int = 10) -> List["Senset"]:
         return self._dictnet.find_similar_sensets_by_id(self.id, pos, top)
