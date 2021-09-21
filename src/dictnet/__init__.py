@@ -1,1 +1,1 @@
-from .dictnet import Dictnet
+from ._dictnet import Dictnet
