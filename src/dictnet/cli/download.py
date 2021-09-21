@@ -42,7 +42,7 @@ def download(data: str, *pip_args) -> None:
     download_data(data_name, version, pip_args)
     msg.good(
         "Download and installation successful",
-        f"You can now load the package via spacy.load('{data_name}')",
+        f"You can now load the package via dictnet.load('{data_name}')",
     )
 
 
