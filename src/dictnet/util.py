@@ -3,6 +3,8 @@ import os
 import sys
 import shlex
 import subprocess
+import importlib
+from ._dictnet import Dictnet
 
 is_windows = sys.platform.startswith("win")
 
@@ -72,3 +74,11 @@ def split_command(command: str) -> List[str]:
     return shlex.split(command, posix=not is_windows)
 
 # end of copy
+
+
+def load(data_name: str) -> Dictnet:
+    data = importlib.import_module(data_name)
+    senses = data.senses
+    def_embeds = data.def_embeds
+    dictnet = Dictnet(senses, def_embeds)
+    return dictnet
