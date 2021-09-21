@@ -1,5 +1,6 @@
 import typer
 from typer.main import get_command
+from .download import download_cli
 
 
 SDIST_SUFFIX = ".tar.gz"
@@ -13,6 +14,12 @@ Opt = typer.Option
 
 
 app = typer.Typer(name=NAME)
+app.command(name='download')(download_cli)
+
+
+@app.command(hidden=True)
+def mock():
+    raise NotImplementedError()
 
 
 def setup_cli() -> None:

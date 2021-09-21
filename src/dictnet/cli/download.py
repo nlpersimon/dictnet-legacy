@@ -3,7 +3,9 @@ import typer
 from wasabi import msg
 import sys
 from ..util import run_command
-from ._util import app, Arg
+
+
+Arg = typer.Argument
 
 
 DATA_URL = {
@@ -15,6 +17,9 @@ DATA_URL = {
 DATA_LATEST_VERSION = {
     "cambridge_sense_000": "0.0.1"
 }
+
+
+app = typer.Typer()
 
 
 @app.command(
@@ -51,4 +56,4 @@ def download_data(
 
 
 if __name__ == '__main__':
-    typer.run(download_cli)
+    app()
