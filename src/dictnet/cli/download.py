@@ -10,12 +10,13 @@ Arg = typer.Argument
 
 DATA_URL = {
     "cambridge_sense_000": {
-        "0.0.1": "https://github.com/nlpersimon/dictnet_data/releases/download/cambridge_sense_000-v0.0.1/cambridge_sense_000-0.0.1-py3-none-any.whl"
+        "0.0.1": "https://github.com/nlpersimon/dictnet_data/releases/download/cambridge_sense_000-v0.0.1/cambridge_sense_000-0.0.1-py3-none-any.whl",
+        "0.0.2": "https://github.com/nlpersimon/dictnet_data/releases/download/cambridge_sense_000-v0.0.2/cambridge_sense_000-0.0.2-py3-none-any.whl"
     }
 }
 
 DATA_LATEST_VERSION = {
-    "cambridge_sense_000": "0.0.1"
+    "cambridge_sense_000": "0.0.2"
 }
 
 
